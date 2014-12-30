@@ -1,0 +1,22 @@
+{
+  "name": "arcgis-featureservice",
+  "version": "1.0.0",
+  "description": "A node module presenting a simple API for dealing with Feature Services through the ArcGIS REST API",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jshint src & tape ./tests/* | tap-spec"
+  },
+  "author": "Ishmael Smyrnow",
+  "license": "MIT",
+  "devDependencies": {
+    "nock": "^0.52.4",
+    "tap-spec": "^2.1.2",
+    "tape": "^3.0.3"
+  },
+  "dependencies": {
+    "debug": "^2.1.1",
+    "lodash.defaults": "^2.4.1",
+    "request": "^2.51.0",
+    "terraformer-arcgis-parser": "^1.0.4"
+  }
+}
