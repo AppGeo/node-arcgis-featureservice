@@ -1,12 +1,28 @@
 {
   "name": "arcgis-featureservice",
   "version": "1.0.0",
-  "description": "A node module presenting a simple API for dealing with Feature Services through the ArcGIS REST API",
+  "description": "A simple API for dealing with ArcGIS Feature Services",
   "main": "src/index.js",
   "scripts": {
     "test": "jshint src & tape ./tests/* | tap-spec"
   },
-  "author": "Ishmael Smyrnow",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AppGeo/print-map.git"
+  },
+  "keywords": [
+    "esri",
+    "arcgis",
+    "rest",
+    "api",
+    "featureservice",
+    "geojson"
+  ],
+  "author": "Ishmael Smyrnow (AppGeo)",
+  "bugs": {
+    "url": "https://github.com/AppGeo/node-arcgis-featureservice/issues"
+  },
+  "homepage": "https://github.com/AppGeo/node-arcgis-featureservice",
   "license": "MIT",
   "devDependencies": {
     "nock": "^0.52.4",
