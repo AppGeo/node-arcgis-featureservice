@@ -1,7 +1,7 @@
 {
   "name": "arcgis-featureservice",
   "version": "1.0.0",
-  "description": "A simple API for dealing with ArcGIS Feature Services",
+  "description": "A simple GeoJSON API for dealing with ArcGIS Feature Services",
   "main": "src/index.js",
   "scripts": {
     "test": "jshint src & tape ./tests/* | tap-spec"
