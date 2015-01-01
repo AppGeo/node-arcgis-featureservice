@@ -149,30 +149,38 @@ FeatureService.prototype.delete = function(id, callback) {
  * @param callback {function} fn(error)
  */
 function handleEsriResponse(callback) {
-  return function(error, response, body) {
+  return function(err, response, body) {
+    var error;
+    
+    if (err) {
+      return callback(err);
+    }
+    
     var json = body && JSON.parse(body);
     if (!json) {
-      callback(new Error('Map service error: response body was null or could not be parsed'));
-      return;
+      return callback(new Error('Response body was null or could not be parsed'));
     }
     
+    // Get the results object from the response, which is the first and only object.
+    // Since batch requests aren't implemented, this should be one of addResults, updateResults, or deleteResults.
     var results = json[Object.keys(json)[0]];
     if (!results || !results.length) {
-      callback(new Error('Map service error: results object not found or invalid'));
-      return;
+      return callback(new Error('Results object not found or is not as expected'));
     }
     
-    // Assume we only get one result back.
+    // Assume we only get one result back (due to unimplemented batch operations).
     var result = results[0];
-
+    
     if (result.success) {
       return callback(null);
     } else if (result.error) {
-      callback(result.error);
-      return;
+      error = new Error(result.error.description);
+      error.code = result.error.code;
+      return callback(error);
     } else {
-      callback(new Error('Map service error: result object is invalid'));
-      return;
+      error = new Error('Feature service error: unexpected result');
+      error.result = result;
+      return callback(error);
     }
   };
 }
