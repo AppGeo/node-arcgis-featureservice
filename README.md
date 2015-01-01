@@ -19,7 +19,7 @@ var svc = new FeatureService({
 Perform the basic CRUD operations, using GeoJSON as the data format.
 
 ```javascript
-svc.get({ foo: 'bar' }, function (err, featureCollection) {/* ... */});
+svc.get({ where: '1=1' }, function (err, featureCollection) {/* ... */});
 svc.add(feature, function (err) {/* ... */});
 svc.update(feature, function (err) {/* ... */});
 svc.delete(id, function (err) {/* ... */});
