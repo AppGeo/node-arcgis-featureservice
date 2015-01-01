@@ -25,6 +25,7 @@
   "homepage": "https://github.com/AppGeo/node-arcgis-featureservice",
   "license": "MIT",
   "devDependencies": {
+    "jshint": "^2.5.11",
     "nock": "^0.52.4",
     "tap-spec": "^2.1.2",
     "tape": "^3.0.3"

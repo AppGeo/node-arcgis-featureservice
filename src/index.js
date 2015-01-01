@@ -92,9 +92,6 @@ FeatureService.prototype.get = function(params, callback) {
 FeatureService.prototype.add = function(geojson, callback) {
   debug('invoking add function');
   var esriJson = arcgis.convert(geojson);
-  
-  // Get around bug in the arcgis#convert method
-  delete esriJson.attributes.OBJECTID;
 
   request.post({
     f: 'json',
