@@ -48,13 +48,19 @@ test('get method wraps server error', function (t) {
     .get('/query')
     .reply(200, {
       error: {
-        message: 'fake error message'
+        code: 400,
+        message: 'fake error message',
+        details: [
+          'some details'
+        ]
       }
     });
   
   svc.get({ foo: 'bar' }, function (err, data) {
     t.ok(err instanceof Error, '`err` is an instance of Error');
     t.equals(err.message, 'fake error message', '`err.message` is as expected');
+    t.equals(err.code, 400, '`err.code` is as expected');
+    t.equals(err.details[0], 'some details', '`err.details` is as expected');
     t.end();
   });
 });

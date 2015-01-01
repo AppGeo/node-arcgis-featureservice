@@ -65,7 +65,10 @@ FeatureService.prototype.get = function(params, callback) {
     }
     
     if (body.error) {
-      return callback(new Error(body.error.message));
+      var error = new Error(body.error.message);
+      error.code = body.error.code;
+      error.details = body.error.details;
+      return callback(error);
     }
     
     var esriFeatures = body.features;
