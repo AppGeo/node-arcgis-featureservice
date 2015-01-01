@@ -24,3 +24,8 @@ svc.add(feature, function (err) {/* ... */});
 svc.update(feature, function (err) {/* ... */});
 svc.delete(id, function (err) {/* ... */});
 ```
+
+## Debugging
+
+This module uses the `debug` module to provide debugging information during usage. To enable it, set the DEBUG
+environment variable to 'arcgis-featureservice'. See https://github.com/visionmedia/debug#usage for more details.
