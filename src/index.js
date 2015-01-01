@@ -57,12 +57,15 @@ FeatureService.prototype.get = function(params, callback) {
     url: this.settings.url + '/query',
     qs: paramsWithDefaults,
     json: true
-  }, function (err, response, body) {
+  }, function _getRequestCallback(err, response, body) {
     debug('get response: %s', stringify(body));
     
-    if (err || body.error) {
-      callback(err || new Error(body.error.message));
-      return;
+    if (err) {
+      return callback(err);
+    }
+    
+    if (body.error) {
+      return callback(new Error(body.error.message));
     }
     
     var esriFeatures = body.features;
@@ -74,7 +77,7 @@ FeatureService.prototype.get = function(params, callback) {
       features: geojsonFeatures
     };
     
-    callback(null, geojson);
+    return callback(null, geojson);
     
   });
 };
@@ -142,7 +145,7 @@ FeatureService.prototype.delete = function(id, callback) {
 
 /**
  * Returns a function that handles the response of an arcgis add/update/delete request.
- 
+ *
  * @param callback {function} fn(error)
  */
 function handleEsriResponse(callback) {
@@ -163,8 +166,7 @@ function handleEsriResponse(callback) {
     var result = results[0];
 
     if (result.success) {
-      callback(null);
-      return;
+      return callback(null);
     } else if (result.error) {
       callback(result.error);
       return;
