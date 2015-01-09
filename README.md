@@ -3,6 +3,12 @@ ArcGIS Feature Service
 
 A simple GeoJSON API for dealing with ArcGIS Feature Services.
 
+## Install
+
+```
+npm install arcgis-featureservice
+```
+
 ## Usage
 
 Initialize a feature service by providing a `url` and `idField`, and optionally a `token`.
