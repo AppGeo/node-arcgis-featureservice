@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:AppGeo/print-map.git"
+    "url": "git@github.com:AppGeo/node-arcgis-featureservice.git"
   },
   "keywords": [
     "esri",
@@ -18,7 +18,7 @@
     "featureservice",
     "geojson"
   ],
-  "author": "Ishmael Smyrnow (AppGeo)",
+  "author": "Ishmael Smyrnow",
   "bugs": {
     "url": "https://github.com/AppGeo/node-arcgis-featureservice/issues"
   },
