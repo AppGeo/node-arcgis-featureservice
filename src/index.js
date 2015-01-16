@@ -131,7 +131,7 @@ FeatureService.prototype.update = function(geojson, callback) {
  * @param callback {function} fn(error)
  */
 FeatureService.prototype.delete = function(id, callback) {
-  debug('invoking delete function');
+  debug('invoking delete function for id %s', id);
   request.post({
     url: this.settings.url + '/deleteFeatures',
     form: {
@@ -153,18 +153,24 @@ function handleEsriResponse(callback) {
     var error;
     
     if (err) {
+      debug('HTTP request resulted in an error:', err);
       return callback(err);
     }
     
     var json = body && JSON.parse(body);
+    
     if (!json) {
+      debug('Response body was null or could not be parsed:', body);
       return callback(new Error('Response body was null or could not be parsed'));
     }
+    
+    debug('Response body as JSON:', json);
     
     // Get the results object from the response, which is the first and only object.
     // Since batch requests aren't implemented, this should be one of addResults, updateResults, or deleteResults.
     var results = json[Object.keys(json)[0]];
     if (!results || !results.length) {
+      debug('Results object not found or is not as expected:', results);
       return callback(new Error('Results object not found or is not as expected'));
     }
     
@@ -172,12 +178,15 @@ function handleEsriResponse(callback) {
     var result = results[0];
     
     if (result.success) {
+      debug('Success');
       return callback(null);
     } else if (result.error) {
+      debug('Received error:', result.error);
       error = new Error(result.error.description);
       error.code = result.error.code;
       return callback(error);
     } else {
+      debug('Feature service responded with a result that cannot be handled:', result);
       error = new Error('Feature service error: unexpected result');
       error.result = result;
       return callback(error);

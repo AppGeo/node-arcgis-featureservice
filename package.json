@@ -1,6 +1,6 @@
 {
   "name": "arcgis-featureservice",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple GeoJSON API for dealing with ArcGIS Feature Services",
   "main": "src/index.js",
   "scripts": {
