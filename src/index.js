@@ -59,22 +59,26 @@ FeatureService.prototype.get = function(params, callback) {
     json: true
   }, function _getRequestCallback(err, response, body) {
     debug('get response: %s', stringify(body));
+    var error;
     
     if (err) {
       return callback(err);
     }
     
     if (body.error) {
-      var error = new Error(body.error.message);
+      error = new Error(body.error.message);
       error.code = body.error.code;
       error.details = body.error.details;
       return callback(error);
     }
     
+    if (!body.features || !body.features.map) {
+      error = new Error('features are undefined');
+      return callback(error);
+    }
+    
     var esriFeatures = body.features;
-    var geojsonFeatures = esriFeatures.map(function(feature) {
-      return arcgis.parse(feature);
-    });
+    var geojsonFeatures = esriFeatures.map(arcgis.parse);
     var geojson = {
       type: 'FeatureCollection',
       features: geojsonFeatures

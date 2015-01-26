@@ -15,7 +15,7 @@ test('has get method', function (t) {
 test('get method makes the correct api call', function (t) {
   nock.cleanAll();
   nock('http://fake.map.service')
-    .filteringPath(function (path) {
+    .filteringPath(function () {
       return '/query';
     })
     .get('/query')
@@ -39,10 +39,28 @@ test('get method makes the correct api call', function (t) {
   });
 });
 
+test('get method handles unexpected response', function (t) {
+  nock.cleanAll();
+  nock('http://fake.map.service')
+    .filteringPath(function () {
+      return '/query';
+    })
+    .get('/query')
+    .reply(200, {
+      junk: true
+    });
+  
+  svc.get({ foo: 'bar' }, function (err) {
+    t.ok(err instanceof Error, '`err` is an instance of Error');
+    t.equals(err.message, 'features are undefined', '`err.message` is as expected');
+    t.end();
+  });
+});
+
 test('get method wraps server error', function (t) {
   nock.cleanAll();
   nock('http://fake.map.service')
-    .filteringPath(function (path) {
+    .filteringPath(function () {
       return '/query';
     })
     .get('/query')
@@ -56,7 +74,7 @@ test('get method wraps server error', function (t) {
       }
     });
   
-  svc.get({ foo: 'bar' }, function (err, data) {
+  svc.get({ foo: 'bar' }, function (err) {
     t.ok(err instanceof Error, '`err` is an instance of Error');
     t.equals(err.message, 'fake error message', '`err.message` is as expected');
     t.equals(err.code, 400, '`err.code` is as expected');
